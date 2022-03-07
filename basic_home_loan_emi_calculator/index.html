@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Loan EMI Calculator</title>
+  </head>
+  <body>
+
+    <h2>Home Loan EMI Calculator</h2>
+    
+    <!-- loan form -->
+    <form id="loanForm">
+      <label for="loanAmount">Home Loan Amount (₹)</label><br>
+      <input type="text" id="loanAmount" name="loanAmount" oninput="calculateHomeLoan()"><br/>
+      <label for="loanTenure">Loan Tenure (Years)</label><br>
+      <input type="text" id="loanTenure" name="loanTenure" oninput="calculateHomeLoan()"><br/>
+      <label for="interestRate">Interest rate (% P.A.)</label><br>
+      <input type="text" id="interestRate" name="interestRate" oninput="calculateHomeLoan()"><br/>
+    </form>
+
+    <!-- calculated results section -->
+
+    <div class="calculationsSection">
+      <h3>Detailed Calculations</h3>
+      <h3 id="emiAmount">₹ 0</h3>
+      <p>EMI</p>
+      <h3 id="totalInterest">₹ 0</h3>
+      <p>Total interest payable over the loan term</p>
+      <h3 id="totalAmount">₹ 0</h3>
+      <p>Total payments made over the loan term</p>
+    </div>
+
+    <!-- monthly amortization schedule -->
+    <div id="scheduleTable"></div>
+
+	  <script src="index.js"></script>
+  </body>
+</html>
