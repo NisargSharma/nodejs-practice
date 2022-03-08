@@ -13,15 +13,14 @@
     <!-- loan form -->
     <form id="loanForm">
       <label for="loanAmount">Home Loan Amount (₹)</label><br>
-      <input type="text" id="loanAmount" name="loanAmount" oninput="calculateHomeLoan()"><br/>
+      <input type="text" id="loanAmount" name="loanAmount" oninput="calculateHomeLoan()" onkeydown="calculateHomeLoan()"><br/>
       <label for="loanTenure">Loan Tenure (Years)</label><br>
-      <input type="text" id="loanTenure" name="loanTenure" oninput="calculateHomeLoan()"><br/>
+      <input type="text" id="loanTenure" name="loanTenure" oninput="calculateHomeLoan()" onkeydown="calculateHomeLoan()"><br/>
       <label for="interestRate">Interest rate (% P.A.)</label><br>
-      <input type="text" id="interestRate" name="interestRate" oninput="calculateHomeLoan()"><br/>
+      <input type="text" id="interestRate" name="interestRate" oninput="calculateHomeLoan()" onkeydown="calculateHomeLoan()"><br/>
     </form>
 
     <!-- calculated results section -->
-
     <div class="calculationsSection">
       <h3>Detailed Calculations</h3>
       <h3 id="emiAmount">₹ 0</h3>

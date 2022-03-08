@@ -17,15 +17,10 @@ function getLoanInputs() {
  */
 function calculateHomeLoan() {
     const emi = calculateEMI();
-    // console.log(`emi: ${emi}`);
-
     if(emi) {
         const totalPayableAmount = calculateTotalPayableAmount(emi);
-        // console.log(`total payable: ${totalPayableAmount}`);
-        
         if(totalPayableAmount) {
             const totalPayableInterest = calculateTotalPayableInterest(totalPayableAmount);
-            // console.log(`total payable interest: ${totalPayableInterest}`);
 
             if(totalPayableInterest) {
                 displayCalculations(emi, totalPayableInterest, totalPayableAmount);
@@ -43,7 +38,6 @@ function calculateEMI() {
     // formula to calculate EMI on loan => P x R x (1+R)^N / [(1+R)^N-1]
     const term = (1 + getLoanInputs().interestRate) ** getLoanInputs().loanTenure;
     const ratio = term / (term - 1);
-
     return getLoanInputs().loanAmount * getLoanInputs().interestRate * ratio;
 }
 
