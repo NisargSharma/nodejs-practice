@@ -1,6 +1,6 @@
 
 /**
- * function to store user inputs in an object and return it 
+ * @description function to store user inputs in an object and return it 
  * @returns {object} loan input object with loan amount, loan tenure and annual interest rate 
  */
 function getLoanInputs() {
@@ -12,8 +12,9 @@ function getLoanInputs() {
 }
 
 /**
- * function to calculate home loan calculations based on user inputs
+ * @description function to calculate home loan calculations based on user inputs
  * and display total calculation details and monthly amortization schedule
+ * @returns {void}
  */
 function calculateHomeLoan() {
     const emi = calculateEMI();
@@ -21,7 +22,6 @@ function calculateHomeLoan() {
         const totalPayableAmount = calculateTotalPayableAmount(emi);
         if(totalPayableAmount) {
             const totalPayableInterest = calculateTotalPayableInterest(totalPayableAmount);
-
             if(totalPayableInterest) {
                 displayCalculations(emi, totalPayableInterest, totalPayableAmount);
                 getAmortizationSchedule(emi);
@@ -31,7 +31,7 @@ function calculateHomeLoan() {
 }
 
 /**
- * function to calculate EMI of the loan
+ * @description function to calculate EMI of the loan
  * @returns {float} product of loan amount, monthly interest rate and loan term
  */
 function calculateEMI() {
@@ -42,7 +42,7 @@ function calculateEMI() {
 }
 
 /**
- * function to calculate total payable amount on the loan
+ * @description function to calculate total payable amount on the loan
  * @param {*} emi 
  * @returns {float} product of emi and loan tenure 
  */
@@ -51,19 +51,20 @@ function calculateTotalPayableAmount(emi) {
 }
 
 /**
- * function to calculate total payable interest on the loan
+ * @description function to calculate total payable interest on the loan
  * @param {*} totalPayableAmount 
- * @returns 
+ * @returns {float} difference between the totalPayableAmount and actual loan amount
  */
 function calculateTotalPayableInterest(totalPayableAmount) {
     return totalPayableAmount - getLoanInputs().loanAmount;
 }
 
 /**
- * function to display detailed home loan calculations
+ * @description function to display detailed home loan calculations
  * @param {*} emi 
  * @param {*} totalInterestPayable 
  * @param {*} totalPayableAmount 
+ * @returns {void}
  */
 function displayCalculations(emi, totalPayableInterest, totalPayableAmount) {
     document.getElementById('emiAmount').innerHTML = `₹ ${emi.toFixed(0)}`;
@@ -72,8 +73,9 @@ function displayCalculations(emi, totalPayableInterest, totalPayableAmount) {
 }
 
 /**
- * function to get amortization schedule of the loan tenure
+ * @description function to get amortization schedule of the loan tenure
  * @param {*} emi 
+ * @returns {void}
  */
 function getAmortizationSchedule(emi) {
     const monthlyArr = getMonthlyCalculation(emi);
@@ -83,9 +85,10 @@ function getAmortizationSchedule(emi) {
 }
 
 /**
- * 
+ * @description calculate the monthly amortized values for loan tenure and
+ * store them in an array to be returned
  * @param {*} emi 
- * @returns 
+ * @returns {Array} array with monthly amortized schedule objects
  */
 function getMonthlyCalculation(emi) {
     const monthlyArr = [];
@@ -112,8 +115,9 @@ function getMonthlyCalculation(emi) {
 }
 
 /**
- * function to create and display dynamic table of monthly amortized schedule
+ * @description function to create and display dynamic table of monthly amortized schedule
  * @param {*} monthlyArr 
+ * @returns {void}
  */
 function displayAmortizationSchedule(monthlyArr) {
     
