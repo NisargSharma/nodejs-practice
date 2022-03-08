@@ -104,7 +104,7 @@ function getMonthlyCalculation(emi) {
             emi: emi.toFixed(0),
             principalPaid: (emi - monthlyInterestAmt).toFixed(0),
             monthlyInterest: monthlyInterestAmt.toFixed(0),
-            outstandingBalance: (loanAmount - monthlyPrincipalAmt).toFixed(0)
+            outstandingBalance: (Math.max(0, loanAmount - monthlyPrincipalAmt)).toFixed(0)
         };
         // reducing the opening loan amount for payment of each month 
         loanAmount -= monthlyPrincipalAmt;
@@ -152,7 +152,7 @@ function displayAmortizationSchedule(monthlyArr) {
         }
     }
 
-    // finallu add the newly created table with JSON data to a container
+    // finally add the newly created table with JSON data to a container
     const divContainer = document.getElementById("scheduleTable");
     divContainer.innerHTML = "";
     divContainer.appendChild(table);
