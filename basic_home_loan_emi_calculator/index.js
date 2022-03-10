@@ -1,7 +1,7 @@
 
 /**
  * @description function to store user inputs in an object and return it 
- * @returns {object} loan input object with loan amount, loan tenure and annual interest rate 
+ * @returns {Object} loan input object with loan amount, loan tenure and annual interest rate 
  */
 function getLoanInputs() {
     return loanInput = {
@@ -43,7 +43,7 @@ function calculateEMI() {
 
 /**
  * @description function to calculate total payable amount on the loan
- * @param {*} emi 
+ * @param {float} emi 
  * @returns {float} product of emi and loan tenure 
  */
 function calculateTotalPayableAmount(emi) {
@@ -52,7 +52,7 @@ function calculateTotalPayableAmount(emi) {
 
 /**
  * @description function to calculate total payable interest on the loan
- * @param {*} totalPayableAmount 
+ * @param {float} totalPayableAmount 
  * @returns {float} difference between the totalPayableAmount and actual loan amount
  */
 function calculateTotalPayableInterest(totalPayableAmount) {
@@ -61,9 +61,9 @@ function calculateTotalPayableInterest(totalPayableAmount) {
 
 /**
  * @description function to display detailed home loan calculations
- * @param {*} emi 
- * @param {*} totalInterestPayable 
- * @param {*} totalPayableAmount 
+ * @param {float} emi 
+ * @param {float} totalInterestPayable 
+ * @param {float} totalPayableAmount 
  * @returns {void}
  */
 function displayCalculations(emi, totalPayableInterest, totalPayableAmount) {
@@ -74,7 +74,7 @@ function displayCalculations(emi, totalPayableInterest, totalPayableAmount) {
 
 /**
  * @description function to get amortization schedule of the loan tenure
- * @param {*} emi 
+ * @param {float} emi 
  * @returns {void}
  */
 function getAmortizationSchedule(emi) {
@@ -87,7 +87,7 @@ function getAmortizationSchedule(emi) {
 /**
  * @description calculate the monthly amortized values for loan tenure and
  * store them in an array to be returned
- * @param {*} emi 
+ * @param {float} emi 
  * @returns {Array} array with monthly amortized schedule objects
  */
 function getMonthlyCalculation(emi) {
@@ -116,7 +116,7 @@ function getMonthlyCalculation(emi) {
 
 /**
  * @description function to create and display dynamic table of monthly amortized schedule
- * @param {*} monthlyArr 
+ * @param {Array} monthlyArr 
  * @returns {void}
  */
 function displayAmortizationSchedule(monthlyArr) {
