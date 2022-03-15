@@ -15,13 +15,13 @@ function init() {
     copyImage("source/image.jpg", "destination/copy_image.jpg");
 
     // log count of words in text file
-    getWordCount("source/demo.txt");
+    getWordCount("source/db.txt");
 
-    // log the count of lines, statements in text file
-    getLinesCount("source/demo.txt");
+    // log the count of lines in text file
+    getLinesCount("source/db.txt");
 
     // log the word with highest occurence with its count
-    getHighestOccurence("source/demo.txt");
+    getHighestOccurence("source/db.txt");
 
     // count and log number of files in current project directory
     filesAndDirectoriesCount.getFilesCount('C:/Users/nisarg.rupesh.sharma/Desktop/training/nodejs/task1');
