@@ -12,7 +12,7 @@ module.exports.getFilesCount = function (path) {
         // error handling
         if (err) throw err;
         // filtering the files array to get only the files and not directories
-        const allFiles = files.filter(file => fs.lstatSync(file).isFile());
+        const allFiles = files.filter(file => (fs.lstatSync(file).isFile() && file !== ".gitignore"));
         // logging the count of all the files in the provided path 
         console.log(`Count of files in current project: ${allFiles.length}`);
     });
@@ -30,7 +30,7 @@ module.exports.getDirectoriesCount = function (path) {
         // error handling
         if (err) throw err;
         // filtering the files array to get only the directories 
-        const allDirectories = files.filter(file => fs.lstatSync(file).isDirectory());
+        const allDirectories = files.filter(file => (fs.lstatSync(file).isDirectory() && file !== "node_modules"));
         // logging the count of all the directories in the provided path 
         console.log(`Count of directories in current project: ${allDirectories.length}`);
     });

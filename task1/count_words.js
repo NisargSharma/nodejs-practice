@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const wordsCounter = require('word-counting')
 
 
 /**
@@ -12,9 +13,8 @@ module.exports = function(filePath) {
     fs.readFile(filePath, "utf-8", (err, data) => {
         // error handling
         if (err) throw err;
-        // splitting the file contents using a regex expression 
-        // to get all the words in an array and
-        // then logging the count of all words in the file
-        console.log(`Count of words in ${path.basename(filePath)}: ${data.split(/[\s.,]+/).length}`);
+        // using the word-counting package to get the count of words from data 
+        const count = wordsCounter(data).wordsCount;
+        console.log(`Count of words in ${path.basename(filePath)}: ${count}`);
     });
 }

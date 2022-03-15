@@ -33,10 +33,10 @@ module.exports = function(filePath) {
     fs.readFile(filePath, "utf-8", (err, data) => {
         // error handling
         if (err) throw err;
-        // splitting the file contents using a regex expression 
-        // to get all the words in an wordsArray and
-        // then logging the count of all words in the file
-        const resultObj = getMostFrequentWord(data.split(/[\s.,]+/));
-        console.log(`Word with highest occurence in ${path.basename(filePath)} is ${resultObj.word}: ${resultObj.count}`);
+        // use regex to create array of only valid words, 
+        // pass it to the getMostFrequentWord function for getting the word 
+        // with highest occurence and its count and then log it to console 
+        const resultObj = getMostFrequentWord(data.match(/\b[^\d\W\n\r]+\b/g));
+        console.log(`Word with highest occurence in ${path.basename(filePath)} is "${resultObj.word}": ${resultObj.count}`);
     });
 }
