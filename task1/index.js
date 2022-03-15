@@ -7,7 +7,7 @@ const getMemoryUsage = require('./memory_usage');
 
 
 /**
- * @description wrapper function
+ * @description main wrapper function
  * @returns {void}
  */
 function init() {
