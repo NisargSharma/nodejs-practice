@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "file-lines-count": "^1.0.1",
     "word-counting": "^1.1.4"
   }
 }
