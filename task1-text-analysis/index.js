@@ -8,7 +8,6 @@ const http = require('http');
 const port = process.env.PORT || 3000;
 
 
-
 // creating an instance of http server
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
@@ -29,10 +28,10 @@ const server = http.createServer((req, res) => {
     res.write(`<h2>Count of lines in ${path.basename("source/db.txt")}: ${getLinesCount("source/db.txt")}</h2>`);
 
     // get count of all files in a project directory
-    res.write(`<h2>Count of files: ${filesAndDirectoriesCount.getFilesCount("C:/Users/nisarg.rupesh.sharma/Desktop/training/nodejs/task1")}</h2>`);
+    res.write(`<h2>Count of files: ${filesAndDirectoriesCount.getFilesCount("C:/Users/nisarg.rupesh.sharma/Desktop/training/nodejs/task1-text-analysis")}</h2>`);
 
     // get count of all directories in a project directory
-    res.write(`<h2>Count of directories: ${filesAndDirectoriesCount.getDirectoriesCount("C:/Users/nisarg.rupesh.sharma/Desktop/training/nodejs/task1")}</h2>`);
+    res.write(`<h2>Count of directories: ${filesAndDirectoriesCount.getDirectoriesCount("C:/Users/nisarg.rupesh.sharma/Desktop/training/nodejs/task1-text-analysis")}</h2>`);
 
     // using the process module to get the memory usage of script
     const memoryUsage = process.memoryUsage().heapUsed / 1024 / 1024;
