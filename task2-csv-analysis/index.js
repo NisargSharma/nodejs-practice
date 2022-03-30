@@ -1,19 +1,25 @@
-const csv = require('csv-parser');
+const http = require('http');
 const fs = require('fs');
+const csv = require('csvtojson');
+const port = process.env.PORT || 3000;
 
-
-/**
- * @description main wrapper function
- * @returns {void}
- */
-function init() {
-    const csvData = [];
-    // read csv file using csv-parser package and store the read data
-    fs.createReadStream('sources/10000_Sales_Records.csv')
-    .pipe(csv())
-    .on('data', (data) => csvData.push(data))
-    .on('end', () => console.log(csvData));
+function readCSV() {
+    csv()
+    .fromFile('./data/10000_Sales_Records.csv')
+    .then(jsonData => fs.writeFileSync('./data/jsonData.txt', JSON.stringify(jsonData)));
 }
 
-// function call
+function init() {
+    readCSV();
+    
+    const server = http.createServer((req, res) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html');
+        res.write(`Hello World!`);
+        res.end();
+    });
+
+    server.listen(port, () => console.log(`Server listening on port ${port}`));
+}
+
 init();
