@@ -1,21 +1,27 @@
 const AuthorModel = require('../models/Author');
-const encryptPassword = require('../utils/encrypt-password.js');
+const bcrypt = require('bcrypt');
 
 // create and save a new author
 exports.create = async (req, res) => {
     // error handling for empty request body
-    if(!req.body) {
+    if(!req.body || !req.body.firstName || !req.body.lastName
+        || !req.body.email || !req.body.password) {
         res
         .status(400)
-        .send({ message: `Author details cannot be empty` });
+        .send({ message: `Required author details cannot be empty` });
+        return;
     }
+
+    // encrypt the request password using hash method before saving to the db
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
     // create author model to save with request body
     const author = new AuthorModel({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: encryptPassword(req.body.password),
+        password: hashedPassword,
         qualification: req.body.qualification,
         domain: req.body.domain,
         awards: req.body.awards,
@@ -95,11 +101,11 @@ exports.update = async (req, res) => {
             .send({ message: `Author updated successfully` });
         }
     })
-    .catch(err => {
+    .catch(err => 
         res
         .status(500)
-        .send({ message: err.message || `Something went wrong` });    
-    });
+        .send({ message: err.message || `Something went wrong` })
+    );
 }
 
 // delete a single author by id
@@ -116,9 +122,9 @@ exports.delete = async (req, res) => {
             .send({ message: `Author deleted successfully` });
         }
     })
-    .catch(err => {
+    .catch(err => 
         res
         .status(500)
-        .send({ message: err.message || `Something went wrong` });
-    });
+        .send({ message: err.message || `Something went wrong` })
+    );
 }

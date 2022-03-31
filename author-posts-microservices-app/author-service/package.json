@@ -1,7 +1,7 @@
 {
   "name": "author-service",
   "version": "1.0.0",
-  "description": "A microservice for performing author related CRUD operations",
+  "description": "A microservice for performing CRUD operations on author",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

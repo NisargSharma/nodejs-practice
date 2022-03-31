@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // define simple GET route to return a welcome message
-app.get('/', (req, res) => res.json({ message: "Hello author microservice!" }));
+app.get('/', (req, res) => res.json({ message: `Hello author microservice!` }));
 
 // add user routes to the app
 app.use('/author', AuthorRoutes);

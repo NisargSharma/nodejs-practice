@@ -13,8 +13,7 @@ const PostSchema = new mongoose.Schema({
         default: ''
     },
     createdDate: {
-        type : Date, 
-        required: true,
+        type : Date,
         default: Date.now,
     },
     updatedDate: {

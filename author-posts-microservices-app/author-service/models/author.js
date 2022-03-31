@@ -19,7 +19,8 @@ const AuthorSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: false
     },
     qualification: {
         type: String,

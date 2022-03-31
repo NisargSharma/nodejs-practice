@@ -18,10 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // define simple GET route to return a welcome message
-app.get('/', (req, res) => res.json({ message: "Hello posts microservice!" }));
+app.get('/', (req, res) => res.json({ message: `Hello post microservice!` }));
 
-// add user routes to the app
-// app.use('/Post', PostRoutes);
+// add post routes to the app
+app.use('/post', PostRoutes);
 
 // start listening to incoming requests on the defined port
 app.listen(PORT, () => console.log(`Server is listening on port ${ PORT },`));
