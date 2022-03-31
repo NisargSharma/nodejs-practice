@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // create a schema using mongoose
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -21,4 +21,4 @@ const userSchema = new mongoose.Schema({
 });
 
 // export the user model created from the defined schema
-module.exports = new mongoose.model('User', userSchema);
+module.exports = new mongoose.model('User', UserSchema);

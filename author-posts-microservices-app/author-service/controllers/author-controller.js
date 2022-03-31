@@ -1,4 +1,5 @@
-const AuthorModel = require('../models/author');
+const AuthorModel = require('../models/Author');
+const encryptPassword = require('../utils/encrypt-password.js');
 
 // create and save a new author
 exports.create = async (req, res) => {
@@ -14,7 +15,7 @@ exports.create = async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password,
+        password: encryptPassword(req.body.password),
         qualification: req.body.qualification,
         domain: req.body.domain,
         awards: req.body.awards,
@@ -68,7 +69,7 @@ exports.findOne = async (req, res) => {
     } catch (error) {
         res
         .status(500)
-        .json({ message: err.message || `Something went wrong` });
+        .json({ message: error.message || `Something went wrong` });
     }
 }
 

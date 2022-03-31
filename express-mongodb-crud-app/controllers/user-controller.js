@@ -65,7 +65,7 @@ exports.findOne = async (req, res) => {
     } catch (error) {
         res
         .status(500)
-        .json({ message: err.message || `Something went wrong!` });
+        .json({ message: error.message || `Something went wrong!` });
     }
 }
 

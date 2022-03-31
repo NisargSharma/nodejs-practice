@@ -1,4 +1,4 @@
-const AuthorController = require('../controllers/Author');
+const AuthorController = require('../controllers/author-controller');
 const router = require('express').Router();
 
 // set up all the request routes 

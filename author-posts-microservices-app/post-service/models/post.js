@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // create post schema
-const postSchema = new mongoose.Schema({
+const PostSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -33,4 +33,4 @@ const postSchema = new mongoose.Schema({
 });
 
 // export the post model created from the defined schema
-module.exports = new mongoose.model('Post', postSchema);
+module.exports = new mongoose.model('Post', PostSchema);

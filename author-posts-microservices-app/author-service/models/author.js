@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // create author schema
-const authorSchema = new mongoose.Schema({
+const AuthorSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
@@ -39,4 +39,4 @@ const authorSchema = new mongoose.Schema({
 });
 
 // export the author model created from the defined schema
-module.exports = new mongoose.model('Author', authorSchema);
+module.exports = new mongoose.model('Author', AuthorSchema);

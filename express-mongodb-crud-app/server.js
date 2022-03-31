@@ -1,7 +1,7 @@
 require('dotenv').config();
 const connectDB = require('./config/db.js');
 const bodyParser = require('body-parser');
-const UserRoutes = require('./routes/User');
+const UserRoutes = require('./routes/user-routes');
 
 // create an express application
 const app = require('express')();

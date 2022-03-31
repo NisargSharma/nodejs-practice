@@ -1,7 +1,7 @@
 require('dotenv').config();
 const connectDB = require('./config/db.js');
 const bodyParser = require('body-parser');
-const PostRoutes = require('./routes/Post');
+const PostRoutes = require('./routes/post-routes');
 
 // create an express application
 const app = require('express')();
