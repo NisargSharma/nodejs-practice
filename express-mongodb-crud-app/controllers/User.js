@@ -78,7 +78,7 @@ exports.update = async (req, res) => {
     }
 
     await UserModel.findByIdAndUpdate(req.params.id, req.body, { 
-        userFindAndModify: false 
+        useFindAndModify: false 
     })
     .then(data => {
         if(!data) {

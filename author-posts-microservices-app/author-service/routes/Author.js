@@ -2,10 +2,10 @@ const AuthorController = require('../controllers/Author');
 const router = require('express').Router();
 
 // set up all the request routes 
-// router.post('/createUser', UserController.create);
-// router.get('/getAllUsers', UserController.findAll);
-// router.get('/getUserById/:id', UserController.findOne);
-// router.patch('/updateUserById/:id', UserController.update);
-// router.delete('/deleteUserById/:id', UserController.delete);
+router.post('/createAuthor', AuthorController.create);
+router.get('/getAllAuthors', AuthorController.findAll);
+router.get('/getAuthorById/:id', AuthorController.findOne);
+router.patch('/updateAuthorById/:id', AuthorController.update);
+router.delete('/deleteAuthorById/:id', AuthorController.delete);
 
 module.exports = router;
