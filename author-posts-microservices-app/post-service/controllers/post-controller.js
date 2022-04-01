@@ -4,10 +4,9 @@ const PostModel = require('../models/post');
 exports.create = async (req, res) => {
     // error handling for empty request body
     if(!req.body || !req.body.title || !req.body.authorId) {
-        res
-        .status(400)
-        .send({ message: `Required post details cannot be empty` });
-        return;
+        return res.status(400).send({ 
+            message: `Required post details cannot be empty` 
+        });
     }
 
     // create post model to save with request body
@@ -21,32 +20,24 @@ exports.create = async (req, res) => {
 
     // save post model in db
     await post.save()
-    .then(data => 
-        res
-        .status(200)
-        .send({ 
-            message: `Post created successfully`, 
-            post: data
-        })
-    )
-    .catch(err =>
-        res
-        .status(500)
-        .send({ message: err.message || `Something went wrong` })
-    )
+    .then(data => res.status(201).send({ 
+        message: `Post created successfully`,
+        post: data
+    }))
+    .catch(err => res.status(500).send({ 
+        message: err.message || `Something went wrong` 
+    }));
 }
 
 // retrieve all posts
 exports.findAll = async (req, res) => {
     try {
         const posts = await PostModel.find();
-        res
-        .status(200)
-        .json(posts);
+        res.status(200).json(posts);
     } catch (error) {
-        res
-        .status(404)
-        .json({ message: error.message });
+        return res.status(500).json({ 
+            message: error.message || `Something went wrong` 
+        });
     }
 }
 
@@ -54,68 +45,54 @@ exports.findAll = async (req, res) => {
 exports.findOne = async (req, res) => {
     try {
         const post = await PostModel.findById(req.params.id);
-        if (!post) {
-            res
-            .status(404)
-            .json({ message: `Post not found` });
-        } else {
-            res
-            .status(200)
-            .json(post);
-        }
+        if (!post) return res.status(404).json({ 
+            message: `Post not found` 
+        });
+        
+        res.status(200).json(post);
     } catch (error) {
-        res
-        .status(500)
-        .json({ message: error.message || `Something went wrong` });
+        return res.status(500).json({
+            message: error.message || `Something went wrong` 
+        });
     }
 }
 
 // update a single post by id
 exports.update = async (req, res) => {  
-    if(!req.body) {
-        res
-        .status(400)
-        .send({ message: `Post details cannot be empty` });
-    }
+    if(!req.body) return res.status(400).send({ 
+        message: `Post details cannot be empty` 
+    });
 
     await PostModel.findByIdAndUpdate(req.params.id, req.body, { 
         useFindAndModify: false 
     })
     .then(data => {
-        if(!data) {
-            res
-            .status(404)
-            .send(`Post not found`)
-        } else {
-            res
-            .status(200)
-            .send({ message: `Post updated successfully` });
-        }
+        if (!data) return res.status(404).send({ 
+            message: `Post not found`
+        });
+        
+        res.status(200).send({
+            message: `Post updated successfully`
+        });
     })
-    .catch(err => 
-        res
-        .status(500)
-        .send({ message: err.message || `Something went wrong` })
-    );
+    .catch(err => res.status(500).send({
+        message: err.message || `Something went wrong`
+    }));
 }
 
 // delete a single post by id
 exports.delete = async (req, res) => {
     await PostModel.findByIdAndRemove(req.params.id)
     .then(data => {
-        if(!data) {
-            res
-            .status(404)
-            .send({ message: `Post not found` });
-        } else {
-            res
-            .status(200)
-            .send({ message: `Post deleted successfully` });
-        }
+        if(!data) return res.status(404).send({ 
+            message: `Post not found`
+        });
+
+        res.status(200).send({ 
+            message: `Post deleted successfully`
+        });
     })
-    .catch(err => 
-        res
-        .status(500)
-        .send({ message: err.message || `Something went wrong` })
-    );
+    .catch(err => res.status(500).send({ 
+        message: err.message || `Something went wrong`
+    }));
 }

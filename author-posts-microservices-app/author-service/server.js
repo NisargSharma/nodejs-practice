@@ -1,4 +1,6 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
+// load .env variables into process.env
+dotenv.config();
 const connectDB = require('./config/db.js');
 const bodyParser = require('body-parser');
 const AuthorRoutes = require('./routes/author-routes');

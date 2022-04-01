@@ -1,4 +1,4 @@
-const AuthorModel = require('../models/Author');
+const AuthorModel = require('../models/author');
 const bcrypt = require('bcrypt');
 
 // create and save a new author
@@ -6,10 +6,9 @@ exports.create = async (req, res) => {
     // error handling for empty request body
     if(!req.body || !req.body.firstName || !req.body.lastName
         || !req.body.email || !req.body.password) {
-        res
-        .status(400)
-        .send({ message: `Required author details cannot be empty` });
-        return;
+        return res.status(400).send({ 
+            message: `Required author details cannot be empty`
+        });
     }
 
     // encrypt the request password using hash method before saving to the db
@@ -30,32 +29,24 @@ exports.create = async (req, res) => {
 
     // save author model in db
     await author.save()
-    .then(data => 
-        res
-        .status(200)
-        .send({ 
-            message: `Author created successfully`, 
-            author: data
-        })
-    )
-    .catch(err =>
-        res
-        .status(500)
-        .send({ message: err.message || `Something went wrong` })
-    )
+    .then(data => res.status(201).send({ 
+        message: `Author created successfully`, 
+        author: data
+    }))
+    .catch(err => res.status(500).send({
+        message: err.message || `Something went wrong` 
+    }))
 }
 
 // retrieve all authors
 exports.findAll = async (req, res) => {
     try {
         const authors = await AuthorModel.find();
-        res
-        .status(200)
-        .json(authors);
+        res.status(200).json(authors);
     } catch (error) {
-        res
-        .status(404)
-        .json({ message: error.message });
+        return res.status(500).json({ 
+            message: error.message || `Something went wrong`
+        });
     }
 }
 
@@ -63,68 +54,52 @@ exports.findAll = async (req, res) => {
 exports.findOne = async (req, res) => {
     try {
         const author = await AuthorModel.findById(req.params.id);
-        if (!author) {
-            res
-            .status(404)
-            .json({ message: `Author not found` });
-        } else {
-            res
-            .status(200)
-            .json(author);
-        }
+        if (!author) return res.status(404).json({ 
+            message: `Author not found`
+        });
+        res.status(200).json(author);
     } catch (error) {
-        res
-        .status(500)
-        .json({ message: error.message || `Something went wrong` });
+        return res.status(500).json({
+            message: error.message || `Something went wrong`
+        });
     }
 }
 
 // update a single author by id
 exports.update = async (req, res) => {  
-    if(!req.body) {
-        res
-        .status(400)
-        .send({ message: `Author details cannot be empty` });
-    }
+    if(!req.body) return res.status(400).send({ 
+        message: `Author details cannot be empty`
+    });
 
     await AuthorModel.findByIdAndUpdate(req.params.id, req.body, { 
         useFindAndModify: false 
     })
     .then(data => {
-        if(!data) {
-            res
-            .status(404)
-            .send(`Author not found`)
-        } else {
-            res
-            .status(200)
-            .send({ message: `Author updated successfully` });
-        }
+        if (!data) return res.status(404).send({
+            message: `Author not found`
+        }); 
+        res.status(200).send({
+            message: `Author updated successfully`
+        });
     })
-    .catch(err => 
-        res
-        .status(500)
-        .send({ message: err.message || `Something went wrong` })
-    );
+    .catch(err => res.status(500).send({
+        message: err.message || `Something went wrong`
+    }));
 }
 
 // delete a single author by id
 exports.delete = async (req, res) => {
     await AuthorModel.findByIdAndRemove(req.params.id)
     .then(data => {
-        if(!data) {
-            res
-            .status(404)
-            .send({ message: `Author not found` });
-        } else {
-            res
-            .status(200)
-            .send({ message: `Author deleted successfully` });
-        }
+        if(!data) return res.status(404).send({
+            message: `Author not found`
+        });
+        
+        res.status(200).send({
+            message: `Author deleted successfully`
+        });
     })
-    .catch(err => 
-        res
-        .status(500)
-        .send({ message: err.message || `Something went wrong` })
-    );
+    .catch(err => res.status(500).send({
+        message: err.message || `Something went wrong`
+    }));
 }
