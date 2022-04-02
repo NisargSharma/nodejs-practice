@@ -1,4 +1,3 @@
-const connectDB = require('./config/db.js');
 const bodyParser = require('body-parser');
 const AuthorRoutes = require('./routes/author-routes');
 
