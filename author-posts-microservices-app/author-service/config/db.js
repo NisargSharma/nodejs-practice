@@ -8,7 +8,7 @@ const DB_URI = process.env.MONGODB_URI;
  * with mongodb db using mongoose
  * @returns {void}
  */
-module.exports = async () => {
+exports.connectDB = async () => {
     mongoose.Promise = global.Promise;
 
     await mongoose.connect(DB_URI, {
