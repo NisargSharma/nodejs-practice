@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const DB_URI = process.env.MONGODB_URI;
 
 /**
- * @description async function to establish connection 
+ * @description function to establish connection 
  * with mongodb db using mongoose
  * @returns {void}
  */
@@ -12,7 +12,9 @@ module.exports = async () => {
     mongoose.Promise = global.Promise;
 
     await mongoose.connect(DB_URI, {
-        useNewUrlParser: true
+        keepAlive: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true
     })
     .then(() => console.log(`Database connected successfully`))
     .catch(err => {

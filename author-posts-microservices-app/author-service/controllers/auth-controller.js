@@ -2,11 +2,13 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Author = require('../models/author');
 
+
 /**
  * @description function to authenticate user login
  * @param {Object} req 
  * @param {Object} res 
- * @returns {Object} response object of api request
+ * @returns {Object} response object with either generated access token 
+ * on successful verification or error message
  */
 exports.login = async (req, res) => {
     try {
@@ -36,12 +38,12 @@ exports.login = async (req, res) => {
         // generate access token if password matces
         const token = generateAccessToken({ id: author._id });
 
-        // return the access token in successful authentication response
+        // return the access token in response for successful authentication 
         res.status(200).send({
             authenticated: true,
             token: token,
             authorId: author._id,
-            message: `User logged in successfully`
+            message: `Login successful`
         })
     } catch (error) {
         // server side error handling
@@ -52,10 +54,10 @@ exports.login = async (req, res) => {
 }
 
 /**
- * @description function to return a signed JWT 
+ * @description function to generate a signed JWT 
  * using the provided payload data and token secret
  * @param {Object} payload 
- * @returns {String} JWT access token
+ * @returns {String} signed JWT access token
  */
 function generateAccessToken(payload) {
     return jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '1800s' });

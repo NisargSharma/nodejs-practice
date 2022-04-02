@@ -1,15 +1,15 @@
 const jwt = require('jsonwebtoken');
 
-
 /**
- * @description function to authenticate/verify a JWT
+ * @description function to authenticate/verify JWT 
+ * sent in the request headers
  * @param {Object} req 
  * @param {Object} res 
- * @returns {Object} response object with api result
+ * @returns {void}
  */
  exports.authenticateToken = (req, res, next) => {
     // destructure and split request headers to get access token
-    const { token } = req.headers['authorization'].split(' ')[1];
+    const token = req.headers['authorization'].split(' ')[1];
   
     // error handling if token not found in request headers
     if (!token) return res.status(401).send({
@@ -19,19 +19,16 @@ const jwt = require('jsonwebtoken');
   
     try {
         // verify token using token secret
-        jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+        jwt.verify(token, process.env.TOKEN_SECRET, (err, verifiedToken) => {
             // error handling if token verfication fails
             if (err) return res.status(403).send({
-                message: `Access forbidden`
+                message: `Access forbidden. Token has expired`
             });
-    
-            // send response for successful token verification
-            // res.status(200).send({
-            //     authenticated: true,
-            //     decoded: decoded,
-            //     message: `Token verified successfully`
-            // });
-            req.authorId = decoded.id;
+
+            // add the decoded author id to the req object
+            // on successful verification of JWT
+            req.authorId = verifiedToken.id;
+            // execute the next middleware function in line 
             next();
         });
     } catch (error) {

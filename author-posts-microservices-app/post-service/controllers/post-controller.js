@@ -1,11 +1,17 @@
 const PostModel = require('../models/post');
 
-// create and save a new post
+/**
+ * @description function to create and save a new post
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Object} response object with either created post data 
+ * and success message or error message
+ */
 exports.create = async (req, res) => {
     // error handling for empty request body
     if(!req.body || !req.body.title || !req.body.authorId) {
         return res.status(400).send({ 
-            message: `Required post details cannot be empty` 
+            message: `Post title or authorId cannot be empty` 
         });
     }
 
@@ -29,7 +35,13 @@ exports.create = async (req, res) => {
     }));
 }
 
-// retrieve all posts
+/**
+ * @description function to retrieve all posts
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Array} response object with array of all posts 
+ * in the collection or error messsage
+ */
 exports.findAll = async (req, res) => {
     try {
         const posts = await PostModel.find();
@@ -41,7 +53,13 @@ exports.findAll = async (req, res) => {
     }
 }
 
-// retrieve a single post by id
+/**
+ * @description function to retrieve single post by id
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Object} response object with either post doc found by id 
+ * or error messsage
+ */
 exports.findOne = async (req, res) => {
     try {
         const post = await PostModel.findById(req.params.id);
@@ -57,7 +75,13 @@ exports.findOne = async (req, res) => {
     }
 }
 
-// update a single post by id
+/**
+ * @description function to update single post by id
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Object} response object with either success message 
+ * on successful post update or error messsage
+ */
 exports.update = async (req, res) => {  
     if(!req.body) return res.status(400).send({ 
         message: `Post details cannot be empty` 
@@ -80,7 +104,13 @@ exports.update = async (req, res) => {
     }));
 }
 
-// delete a single post by id
+/**
+ * @description function to delete single post by id
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Object} response object with either success message 
+ * on successful deletion of post or error messsage
+ */
 exports.delete = async (req, res) => {
     await PostModel.findByIdAndRemove(req.params.id)
     .then(data => {
