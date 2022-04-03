@@ -26,8 +26,8 @@ const PostSchema = new mongoose.Schema({
         default: ''
     },
     visibility: {
-        type: Boolean,
-        default: true
+        type: String,
+        default: 'private'
     }
 });
 
