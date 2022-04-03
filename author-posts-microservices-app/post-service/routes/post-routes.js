@@ -6,6 +6,7 @@ const VerifyToken = require('../middlewares/verify-token');
 router.post('/createPost', VerifyToken.authenticateToken, PostController.create);
 router.get('/getAllPosts', VerifyToken.authenticateToken, PostController.findAll);
 router.get('/getPostById/:id', VerifyToken.authenticateToken, PostController.findOne);
+router.get('/getAuthorPostsByAuthorId/:authorId', VerifyToken.authenticateToken, PostController.findAllByAuthorId);
 router.patch('/updatePostById/:id', VerifyToken.authenticateToken, PostController.update);
 router.delete('/deletePostById/:id', VerifyToken.authenticateToken, PostController.delete);
 

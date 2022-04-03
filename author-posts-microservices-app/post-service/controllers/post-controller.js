@@ -1,4 +1,6 @@
 const PostModel = require('../models/post');
+const axios = require('axios');
+
 
 /**
  * @description function to create and save a new post
@@ -66,13 +68,67 @@ exports.findOne = async (req, res) => {
         if (!post) return res.status(404).json({ 
             message: `Post not found` 
         });
-        
         res.status(200).json(post);
     } catch (error) {
         return res.status(500).json({
             message: error.message || `Something went wrong` 
         });
     }
+}
+
+/**
+ * @description function to retrieve the author details 
+ * and associated posts by author id 
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns response object with either author details 
+ * and associated or error messsage
+ */
+exports.findAllByAuthorId = async (req, res) => {
+    try {
+        // error handling if authorId is missing in request params
+        if (!req.params.authorId) return res.status(400).send({
+            message: `Author Id not found`
+        });
+
+        // destructure and split request headers to get access token
+        const token = req.headers['authorization'].split(' ')[1];
+
+        // retrieve author details using author id
+        const author = await getAuthorById(token, req.params.authorId);
+
+        // retrieve all posts using authorId
+        const posts = await PostModel.find({ authorId: req.params.authorId });
+        // send the retrieved posts as an array of objects
+        res.status(200).send({
+            author: author,
+            posts: posts
+        });
+    } catch (error) {
+        // error handling for server side issues
+        return res.status(500).send({
+            message: error.message || `Something went wrong`
+        });
+    }
+}
+
+/**
+ * @description function to retrieve author details by invoking 
+ * author microservice api using the provided authorId and access token
+ * @param {String} token 
+ * @param {String} authorId 
+ * @returns {Object} JSON object with retrieved author details
+ */
+async function getAuthorById(token, authorId) {
+    // use the axios http client to invoke microservice api endpoint
+    // and get the author details object    
+    return await axios({
+        method: 'get',
+        url: `http://localhost:3030/api/author/getAuthorById/${ authorId }`,
+        headers : { Authorization: `Bearer ${ token }` }
+    })
+    .then(author => author.data)
+    .catch(error => console.error(error));
 }
 
 /**
