@@ -5,7 +5,7 @@ const PostRoutes = require('./routes/post-routes');
 const app = require('express')();
 
 // import server port from .env file
-const PORT = process.env.SERVER_PORT;
+const { SERVER_PORT } = process.env;
 
 /**
  * @description function to configure the server with required parameters
@@ -25,6 +25,6 @@ exports.startServer = () => {
     app.get('/', (req, res) => res.json({ message: `Hello Post microservice!` }));
 
     // start listening to incoming requests on the defined port
-    app.listen(PORT, () => console.log(`Server is listening on port ${ PORT },`));
+    app.listen(SERVER_PORT, () => console.log(`Server is listening on port ${ SERVER_PORT },`));
 }
 

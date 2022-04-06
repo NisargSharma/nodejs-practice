@@ -1,6 +1,5 @@
 const PostModel = require('../models/post');
-const axios = require('axios');
-
+const getAuthorById = require('../external-api-handler/author');
 
 /**
  * @description function to create and save a new post
@@ -112,24 +111,7 @@ exports.findAllByAuthorId = async (req, res) => {
     }
 }
 
-/**
- * @description function to retrieve author details by invoking 
- * author microservice api using the provided authorId and access token
- * @param {String} token 
- * @param {String} authorId 
- * @returns {Object} JSON object with retrieved author details
- */
-async function getAuthorById(token, authorId) {
-    // use the axios http client to invoke microservice api endpoint
-    // and get the author details object    
-    return await axios({
-        method: 'get',
-        url: `http://localhost:3030/api/author/getAuthorById/${ authorId }`,
-        headers : { Authorization: `Bearer ${ token }` }
-    })
-    .then(author => author.data)
-    .catch(error => console.error(error));
-}
+
 
 /**
  * @description function to update single post by id

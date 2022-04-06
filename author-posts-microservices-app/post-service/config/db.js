@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // import db uri from .env file
-const DB_URI = process.env.MONGODB_URI;
+const { MONGODB_URI } = process.env;
 
 /**
  * @description function to establish connection 
@@ -11,7 +11,7 @@ const DB_URI = process.env.MONGODB_URI;
 exports.connectDB = async () => {
     mongoose.Promise = global.Promise;
 
-    await mongoose.connect(DB_URI, {
+    await mongoose.connect(MONGODB_URI, {
         keepAlive: true,
         useNewUrlParser: true,
         useUnifiedTopology: true
