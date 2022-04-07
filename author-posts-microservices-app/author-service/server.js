@@ -5,7 +5,9 @@ const cors = require('cors');
 const AuthorRoutes = require('./routes/author-routes');
 
 // import environment variables
-const { API_GATEWAY_HOST, API_GATEWAY_PORT, SERVER_PORT } = process.env;
+const SERVER_PORT = require('config').get('server.port');
+const API_GATEWAY_HOST = require('config').get('connections.apiGateway.host');
+const API_GATEWAY_PORT = require('config').get('connections.apiGateway.port');
 
 // configure cors options to be used by the api
 const corsOptions = {

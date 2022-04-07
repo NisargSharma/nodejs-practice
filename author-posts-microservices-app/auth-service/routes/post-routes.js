@@ -1,7 +1,9 @@
-const { POST_SERVICE_BASE_URL } = process.env;
 const router = require('express').Router();
 const apiAdapter = require('./api-adapter');
 const RequestAuthorization = require('../middlewares/request-authorization');
+
+// import base url of post service
+const POST_SERVICE_BASE_URL = require('config').get('connections.post.baseURL');
 
 /**
  * @description handler to create and save a new post 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-// import db uri from .env file
-const { MONGODB_URI } = process.env;
+// import db uri
+const MONGODB_URI = require('config').get('db.uri');
 
 /**
  * @description function to establish connection 

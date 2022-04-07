@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 
+// import token secret for jwt verification/authorization
+const TOKEN_SECRET = require('config').get('auth.tokenSecret');
+
 /**
  * @description function to authenticate/verify JWT 
  * sent in the request headers
@@ -19,7 +22,7 @@ const jwt = require('jsonwebtoken');
   
     try {
         // verify token using token secret
-        jwt.verify(token, process.env.TOKEN_SECRET, (err, verifiedToken) => {
+        jwt.verify(token, TOKEN_SECRET, (err, verifiedToken) => {
             // error handling if token verfication fails
             if (err) return res.status(403).send({
                 message: `Access forbidden. Token has expired`

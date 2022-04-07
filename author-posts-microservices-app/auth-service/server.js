@@ -7,7 +7,8 @@ const AuthorRoutes = require('./routes/author-routes');
 const PostRoutes = require('./routes/post-routes');
 
 // import environment variables
-const { SERVER_HOST, SERVER_PORT } = process.env;
+const SERVER_HOST = require('config').get('server.host');
+const SERVER_PORT = require('config').get('server.port');
 
 // configure cors options to be used by the api
 const corsOptions = {

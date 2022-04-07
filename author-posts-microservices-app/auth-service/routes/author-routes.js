@@ -1,7 +1,9 @@
-const { AUTHOR_SERVICE_BASE_URL } = process.env;
 const router = require('express').Router();
 const apiAdapter = require('./api-adapter');
 const RequestAuthorization = require('../middlewares/request-authorization');
+
+// import base url of author service
+const AUTHOR_SERVICE_BASE_URL = require('config').get('connections.author.baseURL');
 
 /**
  * @description route handler to retrieve all authors

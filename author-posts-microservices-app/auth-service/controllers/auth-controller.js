@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const AuthorModel = require('../models/author');
 
+// import token secret to generate access token
+const TOKEN_SECRET = require('config').get('auth.tokenSecret');
 
 /**
  * @description function to create and save a new author
@@ -114,5 +116,5 @@ exports.login = async (req, res) => {
  * @returns {String} signed JWT access token
  */
 function generateAccessToken(payload) {
-    return jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '3600s' });
+    return jwt.sign(payload, TOKEN_SECRET, { expiresIn: '3600s' });
 }

@@ -1,0 +1,15 @@
+{
+    "db": {
+        "uri": "mongodb://localhost:27017/microservices-app-db"
+    },
+    "server": {
+        "host": "localhost",
+        "port": 3030
+    },
+    "connections": {
+        "apiGateway": {
+            "host": "localhost",
+            "port": 3000
+        }
+    }
+}

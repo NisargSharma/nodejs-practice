@@ -1,5 +1,7 @@
-const { AUTHOR_SERVICE_PORT, SERVER_HOST } = process.env;
 const axios = require('axios');
+
+// import author service uri
+const AUTHOR_SERVICE_URI = require('config').get('connections.author.uri');
 
 /**
  * @description function to retrieve author details by invoking 
@@ -13,7 +15,7 @@ module.exports = async (token, authorId) => {
     // and get the author details object    
     return await axios({
         method: 'get',
-        url: `http://${ SERVER_HOST }:${ AUTHOR_SERVICE_PORT }/api/author/getAuthorById/${ authorId }`,
+        url: `${ AUTHOR_SERVICE_URI }/getAuthorById/${ authorId }`,
         headers : { Authorization: `Bearer ${ token }` }
     })
     .then(author => author.data)

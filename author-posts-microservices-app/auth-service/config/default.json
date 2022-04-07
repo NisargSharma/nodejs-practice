@@ -1,0 +1,20 @@
+{
+    "db": {
+        "uri": "mongodb://localhost:27017/microservices-app-db"
+    },
+    "server": {
+        "host": "localhost",
+        "port": 3000
+    },
+    "auth": {
+        "tokenSecret": "1189baff10e576a448b2203f9cddcc3fb8097b89e2cb87af4d73799123f71f020cb00eeb6e21179884f82d324cd3f70120d6dab55aa8bef72c988f3833e6327e"
+    },
+    "connections": {
+        "author": {
+            "baseURL": "http://localhost:3030/api/author"
+        },
+        "post": {
+            "baseURL": "http://localhost:3031/api/post"
+        }
+    }
+}
