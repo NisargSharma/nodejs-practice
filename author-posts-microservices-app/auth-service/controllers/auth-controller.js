@@ -1,7 +1,61 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const Author = require('../models/author');
+const AuthorModel = require('../models/author');
 
+
+/**
+ * @description function to create and save a new author
+ * @param {Object} req 
+ * @param {Object} res 
+ * @returns {Object} response object with either created author data 
+ * and success message or error message
+ */
+exports.create = async (req, res) => {
+    // error handling for empty request body
+    if(!req.body || !req.body.firstName || !req.body.lastName
+        || !req.body.email || !req.body.password) {
+        return res.status(400).send({ 
+            message: `Author first name, last name, email and password are required`
+        });
+    }
+
+    // encrypt the request password using hash method before saving to the db
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+
+    // create author model to save with request body
+    const author = new AuthorModel({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: hashedPassword,
+        qualification: req.body.qualification,
+        domain: req.body.domain,
+        awards: req.body.awards,
+        gender: req.body.gender
+    });
+
+    // save author model in db
+    await author.save()
+    .then(data => {
+        const responseData = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            qualification: data.qualification,
+            domain: data.domain,
+            awards: data.awards,
+            gender: data.gender
+        }
+        res.status(201).send({ 
+            message: `Author created successfully`, 
+            author: responseData
+        });
+    })
+    .catch(err => res.status(500).send({
+        message: err.message || `Something went wrong` 
+    }));
+}
 
 /**
  * @description function to authenticate user login
@@ -20,7 +74,7 @@ exports.login = async (req, res) => {
         }
 
         // retrieve author by email
-        const author = await Author.findOne({ email: req.body.email });
+        const author = await AuthorModel.findOne({ email: req.body.email });
 
         // error handling if no author found by request email
         if (!author) return res.status(404).send({
@@ -60,5 +114,5 @@ exports.login = async (req, res) => {
  * @returns {String} signed JWT access token
  */
 function generateAccessToken(payload) {
-    return jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+    return jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '3600s' });
 }

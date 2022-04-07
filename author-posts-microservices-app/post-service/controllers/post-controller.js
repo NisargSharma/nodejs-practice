@@ -2,7 +2,7 @@ const PostModel = require('../models/post');
 const getAuthorById = require('../external-api-handler/author');
 
 /**
- * @description function to create and save a new post
+ * @description handler to create and save a new post
  * @param {Object} req 
  * @param {Object} res 
  * @returns {Object} response object with either created post data 
@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
     // error handling for empty request body
     if(!req.body || !req.body.title || !req.body.authorId) {
         return res.status(400).send({ 
-            message: `Post title or authorId cannot be empty` 
+            message: `Post title and authorId are required` 
         });
     }
 
@@ -37,7 +37,7 @@ exports.create = async (req, res) => {
 }
 
 /**
- * @description function to retrieve all posts
+ * @description handler to retrieve all posts
  * @param {Object} req 
  * @param {Object} res 
  * @returns {Array} response object with array of all posts 
@@ -55,7 +55,7 @@ exports.findAll = async (req, res) => {
 }
 
 /**
- * @description function to retrieve single post by id
+ * @description handler to retrieve single post by id
  * @param {Object} req 
  * @param {Object} res 
  * @returns {Object} response object with either post doc found by id 
@@ -76,12 +76,12 @@ exports.findOne = async (req, res) => {
 }
 
 /**
- * @description function to retrieve the author details 
+ * @description handler to retrieve the author details 
  * and associated posts by author id 
  * @param {Object} req 
  * @param {Object} res 
- * @returns response object with either author details 
- * and associated or error messsage
+ * @returns {Object} response object with either author details 
+ * and associated posts or error messsage
  */
 exports.findAllByAuthorId = async (req, res) => {
     try {
@@ -111,10 +111,8 @@ exports.findAllByAuthorId = async (req, res) => {
     }
 }
 
-
-
 /**
- * @description function to update single post by id
+ * @description handler to update single post by id
  * @param {Object} req 
  * @param {Object} res 
  * @returns {Object} response object with either success message 
@@ -143,7 +141,7 @@ exports.update = async (req, res) => {
 }
 
 /**
- * @description function to delete single post by id
+ * @description handler to delete single post by id
  * @param {Object} req 
  * @param {Object} res 
  * @returns {Object} response object with either success message 

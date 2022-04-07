@@ -7,8 +7,8 @@ const jwt = require('jsonwebtoken');
  * @param {Object} res 
  * @returns {void}
  */
- exports.authenticateToken = (req, res, next) => {
-    // destructure and split request headers to get access token
+ exports.verifyToken = (req, res, next) => {
+    // split request headers to get access token
     const token = req.headers['authorization'].split(' ')[1];
   
     // error handling if token not found in request headers

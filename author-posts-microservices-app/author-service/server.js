@@ -1,11 +1,19 @@
 const bodyParser = require('body-parser');
-const AuthorRoutes = require('./routes/author-routes');
-
 // create an express application
 const app = require('express')();
+const cors = require('cors');
+const AuthorRoutes = require('./routes/author-routes');
 
-// import server port from .env file
-const { SERVER_PORT } = process.env;
+// import environment variables
+const { API_GATEWAY_HOST, API_GATEWAY_PORT, SERVER_PORT } = process.env;
+
+// configure cors options to be used by the api
+const corsOptions = {
+    origin: `http://${ API_GATEWAY_HOST }:${ API_GATEWAY_PORT }`,
+    methods: "*",
+    allowedHeaders: ['Content-Type'],
+    optionsSuccessStatus: 200 // For legacy browser support
+}
 
 /**
  * @description function to configure the server with required parameters
@@ -18,6 +26,9 @@ exports.startServer = () => {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
+    // enable cors middleware
+    app.use(cors(corsOptions));
+
     // add user routes to the app
     app.use('/api/author', AuthorRoutes);
 
@@ -25,6 +36,6 @@ exports.startServer = () => {
     app.get('/', (req, res) => res.json({ message: `Hello author microservice!` }));
 
     // start listening to incoming requests on the defined port
-    app.listen(SERVER_PORT, () => console.log(`Server is listening on port ${ SERVER_PORT },`));
+    app.listen(SERVER_PORT, () => console.log(`Author service is listening on port ${ SERVER_PORT },`));
 }
 
