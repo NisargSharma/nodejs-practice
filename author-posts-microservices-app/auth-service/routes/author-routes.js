@@ -13,6 +13,7 @@ const AUTHOR_SERVICE_BASE_URL = require('config').get('connections.author.baseUR
 router.get('/getAllAuthors', RequestAuthorization.verifyToken, (req, res) => {
   // split request headers to get access token
   const token = req.headers['authorization'].split(' ')[1];
+  console.log(req.headers);
   
   // use apiAdapter to handle incoming http requests 
   // using the microservice base url and auth token
