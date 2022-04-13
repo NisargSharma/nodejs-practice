@@ -21,12 +21,10 @@ const allowlist = [ `http://${ API_GATEWAY_HOST }:${ API_GATEWAY_PORT }` ]
 
 const corsOptionsDelegate = function (req, callback) {
     let corsOptions;
-    console.log(req.headers);
+    // console.log(req.headers);
     if (allowlist.indexOf(req.header('Origin')) !== -1) {
-        console.log("in if");
         corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
     } else {
-        console.log("in else");
         corsOptions = { origin: false } // disable CORS for this request
     }
     callback(null, corsOptions) // callback expects two parameters: error and options

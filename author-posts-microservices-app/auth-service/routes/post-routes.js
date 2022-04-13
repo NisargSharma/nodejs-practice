@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const apiAdapter = require('./api-adapter');
-const RequestAuthorization = require('../middlewares/request-authorization');
+const Middleware = require('../middlewares/middleware');
+const { schemas } = require('../schemas/validation-schemas');
 
 // import base url of post service
 const POST_SERVICE_BASE_URL = require('config').get('connections.post.baseURL');
@@ -10,7 +11,7 @@ const POST_SERVICE_BASE_URL = require('config').get('connections.post.baseURL');
  * @returns {Object} response object with either created post data 
  * and success message or error message
  */
-router.post('/createPost', RequestAuthorization.verifyToken, (req, res) => {
+router.post('/createPost', [Middleware.verifyToken, Middleware.validateSchema(schemas.createPost, 'body')], (req, res) => {
   // split request headers to get access token
   const token = req.headers['authorization'].split(' ')[1];
   
@@ -27,7 +28,7 @@ router.post('/createPost', RequestAuthorization.verifyToken, (req, res) => {
  * @returns {Array} response object with array of all posts 
  * in the collection or error messsage
  */
- router.get('/getAllPosts', RequestAuthorization.verifyToken, (req, res) => {
+ router.get('/getAllPosts', Middleware.verifyToken, (req, res) => {
   // split request headers to get access token
   const token = req.headers['authorization'].split(' ')[1];
   
@@ -43,7 +44,7 @@ router.post('/createPost', RequestAuthorization.verifyToken, (req, res) => {
  * @returns {Object} response object with either post doc found by id 
  * or error messsage
  */
- router.get('/getPostById/:id', RequestAuthorization.verifyToken, (req, res) => {
+ router.get('/getPostById/:id', [Middleware.verifyToken, Middleware.validateSchema(schemas.getPostById, 'params')], (req, res) => {
   // split request headers to get access token
   const token = req.headers['authorization'].split(' ')[1];
   
@@ -60,7 +61,7 @@ router.post('/createPost', RequestAuthorization.verifyToken, (req, res) => {
  * @returns response object with either author details 
  * and associated posts or error messsage
  */
- router.get('/getAuthorPostsByAuthorId/:authorId', RequestAuthorization.verifyToken, (req, res) => {
+ router.get('/getAuthorPostsByAuthorId/:authorId', [Middleware.verifyToken, Middleware.validateSchema(schemas.getAuthorPostsByAuthorId, 'params')], (req, res) => {
   // split request headers to get access token
   const token = req.headers['authorization'].split(' ')[1];
   
@@ -76,7 +77,7 @@ router.post('/createPost', RequestAuthorization.verifyToken, (req, res) => {
  * @returns {Object} response object with either success message 
  * on successful post update or error messsage
  */
- router.patch('/updatePostById/:id', RequestAuthorization.verifyToken, (req, res) => {
+ router.patch('/updatePostById/:id', [Middleware.verifyToken, Middleware.validateSchema(schemas.updatePostById, 'body')], (req, res) => {
   // split request headers to get access token
   const token = req.headers['authorization'].split(' ')[1];
   
@@ -92,7 +93,7 @@ router.post('/createPost', RequestAuthorization.verifyToken, (req, res) => {
  * @returns {Object} response object with either success message 
  * on successful deletion of post or error messsage
  */
- router.delete('/deletePostById/:id', RequestAuthorization.verifyToken, (req, res) => {
+ router.delete('/deletePostById/:id', [Middleware.verifyToken, Middleware.validateSchema(schemas.deletePostById, 'params')], (req, res) => {
   // split request headers to get access token
   const token = req.headers['authorization'].split(' ')[1];
   
